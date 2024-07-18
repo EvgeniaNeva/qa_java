@@ -1,4 +1,5 @@
 import com.example.Feline;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,8 +7,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class FelineParameterizedTest {
@@ -32,8 +32,7 @@ public class FelineParameterizedTest {
     public static Object[][] testData() {
         return new Object[][]{
                 {1, "Травоядное", List.of("Трава", "Различные растения")},
-                {3, "Хищник", List.of("Животные", "Птицы", "Рыба")},
-                {2, "Неизвестный вид", List.of()}
+                {3, "Хищник", List.of("Животные", "Птицы", "Рыба")}
         };
     }
 
@@ -45,10 +44,14 @@ public class FelineParameterizedTest {
     @Test
     public void testGetFood() {
         try {
-            assertArrayEquals(food.toArray(), feline.getFood(animalKind).toArray());
+            assertEquals(food, feline.getFood(animalKind));
         } catch (Exception exception) {
-            assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник",
-                    exception.getMessage());
+            Assert.fail(exception.getMessage());
         }
+    }
+
+    @Test
+    public  void testExceptionGetFood() {
+        assertThrows(Exception.class, () -> feline.getFood("Неизвестный вид"));
     }
 }

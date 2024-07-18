@@ -1,3 +1,4 @@
+import com.example.Feline;
 import com.example.Lion;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,8 @@ public class LionParameterizedTest {
 
     @Before
     public void setUp() throws Exception {
-        lion = new Lion(sex);
+        Feline feline = new Feline();
+        lion = new Lion(sex, feline);
     }
 
     public LionParameterizedTest(String sex, boolean hasMane) {
